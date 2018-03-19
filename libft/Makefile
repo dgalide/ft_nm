@@ -3,16 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgalide <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/30 17:42:00 by dgalide           #+#    #+#              #
-#    Updated: 2016/10/05 10:50:03 by dgalide          ###   ########.fr        #
+#    Updated: 2018/03/19 15:01:07 by dgalide          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 SRC += ft_atoi_base.c
+SRC += ft_tab_cpy.c
+SRC += ft_tab_del.c
+SRC += ft_tab_join.c
 SRC += get_next_line.c
 SRC += ft_atoi.c
 SRC += ft_itoa.c

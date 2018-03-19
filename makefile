@@ -3,6 +3,10 @@ LIB = libft/libft.a
 LIB_PATH = libft
 
 SRC = srcs/ft_nm.c
+SRC += srcs/list.c
+SRC += srcs/handler_64.c
+SRC += srcs/print_output.c
+SRC += srcs/utils.c
 
 INC = -I ./incs/
 
@@ -56,6 +60,7 @@ start:
 clean: start
 	@echo "\033[K$(CY)[ft_nm] :$(CE) $(CG)Cleaning ft_nm objects$(CE)\033[1A";
 	@/bin/rm -rf $(OBJ);
+	@rm $(NAME)
 	-@make clean -C $(LIB_PATH);
 
 fclean: start clean

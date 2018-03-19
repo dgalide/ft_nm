@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/28 14:49:27 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/19 18:54:02 by dgalide          ###   ########.fr       */
+/*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
+/*   Updated: 2018/03/19 18:28:51 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "../incs/ft_nm.h"
 
-size_t		ft_strlen(const char *str)
+char		*format_section_name(char *section_name)
 {
-	int i;
+	char	*output;
 
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
-}
-
-size_t		ft_tablen(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab && tab[i])
-		i++;
-	return (i);
+	output = ft_memalloc(17);
+	ft_strncpy(output, (char *)section_name, 16);
+	return (output);
 }

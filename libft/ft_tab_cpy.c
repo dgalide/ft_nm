@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_tab_cpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/28 14:49:27 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/19 18:54:02 by dgalide          ###   ########.fr       */
+/*   Created: 2015/12/02 15:46:10 by dgalide           #+#    #+#             */
+/*   Updated: 2018/03/19 18:27:07 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-size_t		ft_strlen(const char *str)
+char			**ft_tab_cpy(char **src, char **dst)
 {
-	int i;
+	int			i;
+	int			length;
 
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
-}
-
-size_t		ft_tablen(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab && tab[i])
-		i++;
-	return (i);
+	if (!*src)
+		return (NULL);
+	i = -1;
+	length = ft_strlen(*src);
+	dst = (char **)malloc(sizeof(char *) * length + 1);
+	while (++i < length)
+		dst[i] = ft_strdup(src[i]);
+	dst[i] = NULL;
+	return (dst);
 }
