@@ -6,16 +6,18 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 15:52:33 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 18:31:04 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ft_nm.h"
 
-static void	print_output(t_nm *nm, char **sections)
+static int	print_output(t_nm *nm, char **sections)
 {
 	t_nm *tmp;
 
+	if (!nm)
+		return (0);
 	while (nm)
 	{
 		if (nm->value == 0 && (nm->type & N_TYPE) != N_UNDF)
@@ -27,15 +29,19 @@ static void	print_output(t_nm *nm, char **sections)
 		free(nm);
 		nm = tmp;
 	}
+	return (1);
 }
 
-static t_nm	*get_symbols(struct symtab_command *sym, void *ptr)
+static t_nm	*get_symbols(struct symtab_command *sym, void *ptr,
+	struct stat buff)
 {
 	int				i;
 	void			*stringtable;
 	struct nlist	*array;
 	t_nm			*lst;
 
+	if (!security_func(buff, sym->stroff + sym->strsize))
+		return (NULL);
 	array = (void *)ptr + sym->symoff;
 	stringtable = (void *)ptr + sym->stroff;
 	lst = NULL;
@@ -67,7 +73,7 @@ static char	**get_sections(char **sections, struct segment_command *segment)
 	return (sections);
 }
 
-void		handler_32(void *ptr, struct stat buff)
+int			handler_32(void *ptr, struct stat buff, char *name)
 {
 	int						i;
 	struct mach_header		*header;
@@ -77,8 +83,12 @@ void		handler_32(void *ptr, struct stat buff)
 
 	sections = NULL;
 	i = -1;
+	if (!security_func(buff, sizeof(struct mach_header) * 2))
+		return print_corrupted(name);
 	header = (struct mach_header *)ptr;
 	lc = (void *)ptr + sizeof(struct mach_header);
+	if (!security_func(buff, sizeof(struct mach_header) + header->sizeofcmds))
+		return print_corrupted(name);
 	while (++i < (int)header->ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
@@ -87,6 +97,7 @@ void		handler_32(void *ptr, struct stat buff)
 			sections = get_sections(sections, (struct segment_command *)lc);
 		lc = (void *)lc + lc->cmdsize;
 	}
-	print_output(get_symbols(sym, ptr), sections);
-	(void)buff;
+	if (!print_output(get_symbols(sym, ptr, buff), sections))
+		return print_corrupted(name);
+	return (1);
 }

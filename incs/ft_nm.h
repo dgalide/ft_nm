@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:24:05 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 15:43:21 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 19:02:55 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ typedef struct			s_nm
 }						t_nm;
 
 int						main(int ac, char **av);
-void					ft_nm(void *ptr, struct stat buff);
+int						ft_nm(void *ptr, struct stat buff, char *name);
 
-void					handler_64(void *ptr, struct stat buff);
-void					handler_32(void *ptr, struct stat buff);
+int						handler_64(void *ptr, struct stat buff, char *name);
+int						handler_32(void *ptr, struct stat buff, char *name);
 
-void					get_fat_64(void *ptr, struct stat buff);
-void					get_fat_32(void *ptr, struct stat buff);
+int						get_fat_64(void *ptr, struct stat buff, char *name);
+int						get_fat_32(void *ptr, struct stat buff, char *name);
 
 void					add_list_64(t_nm **lt,
 								char *str, struct nlist_64 array);
@@ -49,5 +49,7 @@ void					print_addr(unsigned long long n, int boo);
 
 char					*format_section_name(char *section_name);
 int						reverse_endianness(int x);
+int						security_func(struct stat buff, int offset);
+int						print_corrupted(char *name);
 
 #endif

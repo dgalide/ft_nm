@@ -6,26 +6,27 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 16:20:11 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 19:04:44 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ft_nm.h"
 
-void	ft_nm(void *ptr, struct stat buff)
+int		ft_nm(void *ptr, struct stat buff, char *name)
 {
 	int						magic;
 
 	magic = *(int *)ptr;
 	if (magic == (int)MH_MAGIC_64)
-		handler_64(ptr, buff);
+		handler_64(ptr, buff, name);
 	else if (magic == (int)MH_MAGIC)
-		handler_32(ptr, buff);
+		handler_32(ptr, buff, name);
 	else if (magic == (int)FAT_CIGAM)
-		get_fat_32(ptr, buff);
+		get_fat_32(ptr, buff, name);
 	else if (magic == (int)FAT_CIGAM_64)
-		get_fat_64(ptr, buff);
-} 
+		get_fat_64(ptr, buff, name);
+	return (1);
+}
 
 int		put_error(char *error)
 {
@@ -50,7 +51,7 @@ int		main(int ac, char **av)
 	if ((ptr = mmap(0, buff.st_size, PROT_READ, MAP_PRIVATE, fd, 0))
 														== MAP_FAILED)
 		return (put_error("Mmap error"));
-	ft_nm(ptr, buff);
+	ft_nm(ptr, buff, av[1]);
 	close(fd);
 	munmap(ptr, buff.st_size);
 	return (0);
