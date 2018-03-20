@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_nm.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/19 18:24:05 by dgalide           #+#    #+#             */
+/*   Updated: 2018/03/20 12:26:15 by dgalide          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_NM_H
 # define FT_NM_H
 
@@ -17,13 +29,15 @@ typedef struct			s_nm
 	struct s_nm			*next;
 }						t_nm;				
 
-int 			main(int ac, char **av);
-void			handler_64(void *ptr, struct stat buff);
-void			add_list_64(t_nm **lt, char *str, struct nlist_64 array);
+int 					main(int ac, char **av);
+void					handler_64(void *ptr, struct stat buff);
+void					handler_32(void *ptr, struct stat buff);
+void					add_list_64(t_nm **lt, char *str, struct nlist_64 array);
+void					add_list_32(t_nm **nm, char *str, struct nlist array);
 
-void			print_letter(t_nm *nm, char **tab);
-void			print_addr(unsigned long long n, int boo);
+void					print_letter(t_nm *nm, char **tab);
+void					print_addr(unsigned long long n, int boo);
 
-char			*format_section_name(char *section_name);
+char					*format_section_name(char *section_name);
 
 #endif

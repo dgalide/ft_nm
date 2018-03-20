@@ -7,6 +7,7 @@ SRC += srcs/list.c
 SRC += srcs/handler_64.c
 SRC += srcs/print_output.c
 SRC += srcs/utils.c
+SRC += srcs/handler_32.c
 
 INC = -I ./incs/
 
@@ -14,6 +15,7 @@ NAME = ft_nm
 
 OBJ = $(SRC:.c=.o)
 FLAG = -Wall -Werror -Wextra
+DEBUG_FLAG = -fsanitize=address -Wall -Werror -Wextra
 
 CG = \033[92m
 CY =  \033[93m

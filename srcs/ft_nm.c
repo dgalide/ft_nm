@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/19 18:55:57 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 13:19:00 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_nm(void *ptr, struct stat buff)
 	magic = *(int *)ptr;
 	if (magic == (int)MH_MAGIC_64)
 		handler_64(ptr, buff);
+	else if (magic == (int)MH_MAGIC)
+		handler_32(ptr, buff);
 }
 
 int put_error(char *error)

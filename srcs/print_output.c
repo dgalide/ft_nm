@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/19 18:58:07 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 11:56:07 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void			print_letter(t_nm *nm, char **tab)
 			|| !ft_strcmp(section_name, "__bss"))) ?
 		ft_toupper(section_name[2]) : 'S';
 	}
-	(void)tab;
 	ft_putchar(' ');
 	ft_putchar(!(nm->type & N_EXT) ? ft_tolower(type) : type);
 	ft_putchar(' ');

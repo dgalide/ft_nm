@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/19 18:01:34 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 12:16:11 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,24 @@ static void		push_list(t_nm **lt, t_nm *tmp, t_nm *new)
 }
 
 void			add_list_64(t_nm **nm, char *str, struct nlist_64 array)
+{
+	t_nm *new;
+	t_nm *tmp;
+
+	tmp = *nm;
+	new = (t_nm*)malloc(sizeof(t_nm));
+	new->value = array.n_value;
+	new->type = array.n_type;
+	new->sect = array.n_sect;
+	new->str = str;
+	new->next = NULL;
+	if (!*nm)
+		*nm = new;
+	else
+		push_list(nm, tmp, new);
+}
+
+void			add_list_32(t_nm **nm, char *str, struct nlist array)
 {
 	t_nm *new;
 	t_nm *tmp;
