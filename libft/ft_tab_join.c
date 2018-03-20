@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/02 15:46:10 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 15:32:24 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 15:44:48 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ char			**ft_tab_join(char **t1, char **t2, int b1, int b2)
 		ft_tab_del(t1);
 	if (b2)
 		ft_tab_del(t2);
-	return output;
+	return (output);
 }

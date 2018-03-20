@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:24:05 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 14:58:00 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 15:43:21 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ typedef struct			s_nm
 	uint8_t				type;
 	uint8_t				sect;
 	struct s_nm			*next;
-}						t_nm;				
+}						t_nm;
 
-int 					main(int ac, char **av);
+int						main(int ac, char **av);
 void					ft_nm(void *ptr, struct stat buff);
 
 void					handler_64(void *ptr, struct stat buff);
@@ -40,7 +40,8 @@ void					handler_32(void *ptr, struct stat buff);
 void					get_fat_64(void *ptr, struct stat buff);
 void					get_fat_32(void *ptr, struct stat buff);
 
-void					add_list_64(t_nm **lt, char *str, struct nlist_64 array);
+void					add_list_64(t_nm **lt,
+								char *str, struct nlist_64 array);
 void					add_list_32(t_nm **nm, char *str, struct nlist array);
 
 void					print_letter(t_nm *nm, char **tab);

@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 14:10:12 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 15:52:33 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static void	print_output(t_nm *nm, char **sections)
 	}
 }
 
-static t_nm *get_symbols(struct symtab_command *sym, void *ptr)
+static t_nm	*get_symbols(struct symtab_command *sym, void *ptr)
 {
 	int				i;
 	void			*stringtable;
-	struct nlist 	*array;
+	struct nlist	*array;
 	t_nm			*lst;
 
 	array = (void *)ptr + sym->symoff;
@@ -43,7 +43,7 @@ static t_nm *get_symbols(struct symtab_command *sym, void *ptr)
 	while (++i < (int)sym->nsyms)
 		if (!(array[i].n_type & N_STAB))
 			add_list_32(&lst, stringtable + array[i].n_un.n_strx, array[i]);
-	return lst;
+	return (lst);
 }
 
 static char	**get_sections(char **sections, struct segment_command *segment)
@@ -64,10 +64,10 @@ static char	**get_sections(char **sections, struct segment_command *segment)
 		sections = ft_tab_cpy(tmp, sections);
 	else
 		sections = ft_tab_join(sections, tmp, 0, 0);
-	return sections;
+	return (sections);
 }
 
-void			handler_32(void *ptr, struct stat buff)
+void		handler_32(void *ptr, struct stat buff)
 {
 	int						i;
 	struct mach_header		*header;

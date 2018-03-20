@@ -6,13 +6,13 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 15:16:45 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 15:55:26 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ft_nm.h"
 
-static	size_t		nbrlen(unsigned long long n)
+static	size_t	nbrlen(unsigned long long n)
 {
 	size_t i;
 
@@ -55,7 +55,7 @@ void			print_letter(t_nm *nm, char **tab)
 	ft_putendl(nm->str);
 }
 
-void				print_addr(unsigned long long n, int boo)
+void			print_addr(unsigned long long n, int boo)
 {
 	char				str[nbrlen(n) + 1];
 	size_t				len;
