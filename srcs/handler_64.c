@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 12:26:05 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 15:21:55 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ static char	**get_sections(char **sections, struct segment_command_64 *segment)
 	i = -1;
 	if (segment->nsects < 1)
 		return (sections);
-	tmp = (char **)malloc(sizeof(char *) * segment->nsects + 1);
+	tmp = (char **)malloc(sizeof(char *) * (segment->nsects + 1));
 	section = (struct section_64 *)(segment + 1);
 	while (++i < (int)segment->nsects)
 		(tmp[i] = format_section_name(section->sectname)) ? (section++) : 0;
-	tmp[i] = NULL;
+	tmp[i] = 0;
 	if (!sections)
 		sections = ft_tab_cpy(tmp, sections);
 	else

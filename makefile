@@ -8,6 +8,7 @@ SRC += srcs/handler_64.c
 SRC += srcs/print_output.c
 SRC += srcs/utils.c
 SRC += srcs/handler_32.c
+SRC += srcs/handler_fat.c
 
 INC = -I ./incs/
 
