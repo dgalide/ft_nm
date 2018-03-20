@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 15:51:02 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/20 16:20:11 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_nm(void *ptr, struct stat buff)
 		get_fat_32(ptr, buff);
 	else if (magic == (int)FAT_CIGAM_64)
 		get_fat_64(ptr, buff);
-}
+} 
 
 int		put_error(char *error)
 {

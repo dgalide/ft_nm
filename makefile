@@ -23,9 +23,9 @@ CY =  \033[93m
 CE = \033[0m
 CB = \033[34m
 
-all: start $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): start $(OBJ)
 	@echo "\033[K$(CY)[ft_nm] :$(CE) $(CG)Compiling ft_nm ...$(CE)";
 	@make -C libft
 	@gcc $(FLAG) -o $(NAME) $(INC) $(SRC) $(LIB);
@@ -63,12 +63,11 @@ start:
 clean: start
 	@echo "\033[K$(CY)[ft_nm] :$(CE) $(CG)Cleaning ft_nm objects$(CE)\033[1A";
 	@/bin/rm -rf $(OBJ);
-	@rm $(NAME)
 	-@make clean -C $(LIB_PATH);
 
 fclean: start clean
 	@echo "\033[K$(CY)[ft_nm] :$(CE) $(CG)Cleaning 42sh ...$(CE)\033[1A";
-	@/bin/rm -f $(NAME)_$(HOSTTYPE) "libft_ft_nm.so";
+	@/bin/rm -f $(NAME);
 	-@make fclean -C $(LIB_PATH);
 
 re: fclean all
