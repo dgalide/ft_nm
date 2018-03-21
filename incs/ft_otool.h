@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_otool.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
+/*   Updated: 2018/03/21 17:12:34 by dgalide          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_OTOOL_H
 # define FT_OTOOL_H
 
@@ -22,9 +34,21 @@ typedef struct 			s_otool
 }						t_otool;
 
 int			main(int ac, char **av);
-int			put_error(char *error);
+int			ft_otool(void *ptr, struct stat buff, char *name);
+t_otool		*otool_init(struct stat buff, void *ptr);
+
+int			handler_64(void *ptr, struct stat buff, char *name);
+int			handler_32(void *ptr, struct stat buff, char *name);
+int			get_fat_32(void *ptr, struct stat buff, char *name);
+int			get_fat_64(void *ptr, struct stat buff, char *name);
+
 int			security_func(struct stat buff, int offset);
-int			print_corrupted(char *name);
+int			reverse_endianness(int x);
+
+int			print_output(t_otool *otool, int archbool, char *name);
 void		print_addr(unsigned long long n, int boo);
+void		print_hex(unsigned char byte);
+int			print_corrupted(char *name);
+int			put_error(char *error);
 
 #endif

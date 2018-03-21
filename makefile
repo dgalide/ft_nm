@@ -13,6 +13,9 @@ NM_SRC += srcs/handler_fat.c
 OTOOL_SRC = srcs/ft_otool.c
 OTOOL_SRC += srcs/utils.c
 OTOOL_SRC += srcs/print_output.c
+OTOOL_SRC += srcs/otool_32.c
+OTOOL_SRC += srcs/otool_64.c
+OTOOL_SRC += srcs/otool_fat.c
 
 INC = -I ./incs/
 

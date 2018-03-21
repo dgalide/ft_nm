@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 15:42:13 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:06:38 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,26 @@ int			print_corrupted(char *name)
 	ft_putstr_fd(name, 2);
 	ft_putendl_fd(" is corrupted.", 2);
 	return (0);
+}
+
+void	print_hex(unsigned char byte)
+{
+	char			str[2];
+	short			count;
+	short			char_hex;
+	unsigned char	cast;
+
+	cast = (unsigned char)byte;
+	count = -1;
+	while (++count != 2)
+	{
+		char_hex = cast % 16;
+		cast /= 16;
+		if (char_hex < 10)
+			str[count] = char_hex + '0';
+		else
+			str[count] = (char_hex % 10) + 'a';
+	}
+	ft_putchar(str[1]);
+	ft_putchar(str[0]);
 }
