@@ -6,11 +6,20 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 09:49:03 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/21 14:56:49 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ft_nm.h"
+
+char	*format_section_name(char *section_name)
+{
+	char	*output;
+
+	output = ft_memalloc(17);
+	ft_strncpy(output, (char *)section_name, 16);
+	return (output);
+}
 
 int		ft_nm(void *ptr, struct stat buff, char *name)
 {
@@ -37,7 +46,7 @@ int		main(int ac, char **av)
 	fd = 0;
 	ptr = NULL;
 	if (ac != 2)
-		return (put_error("Error, only one argument needed"));
+		return (put_error("Error, argument needed"));
 	if ((fd = open(av[1], O_RDONLY)) < 0)
 		return (put_error("Open Failed"));
 	if (fstat(fd, &buff) < 0)

@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 09:48:49 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/21 15:42:13 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@ int			put_error(char *error)
 {
 	ft_putendl_fd(error, 2);
 	return (-1);
-}
-
-char		*format_section_name(char *section_name)
-{
-	char	*output;
-
-	output = ft_memalloc(17);
-	ft_strncpy(output, (char *)section_name, 16);
-	return (output);
 }
 
 int			reverse_endianness(int x)
