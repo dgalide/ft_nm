@@ -6,11 +6,17 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 19:05:15 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/21 09:48:49 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ft_nm.h"
+
+int			put_error(char *error)
+{
+	ft_putendl_fd(error, 2);
+	return (-1);
+}
 
 char		*format_section_name(char *section_name)
 {

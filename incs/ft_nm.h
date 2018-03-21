@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:24:05 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 19:02:55 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/21 09:53:46 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ char					*format_section_name(char *section_name);
 int						reverse_endianness(int x);
 int						security_func(struct stat buff, int offset);
 int						print_corrupted(char *name);
+int						put_error(char *error);
 
 #endif

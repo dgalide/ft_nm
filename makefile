@@ -2,19 +2,25 @@ LIB = libft/libft.a
 
 LIB_PATH = libft
 
-SRC = srcs/ft_nm.c
-SRC += srcs/list.c
-SRC += srcs/handler_64.c
-SRC += srcs/print_output.c
-SRC += srcs/utils.c
-SRC += srcs/handler_32.c
-SRC += srcs/handler_fat.c
+NM_SRC = srcs/ft_nm.c
+NM_SRC += srcs/list.c
+NM_SRC += srcs/handler_64.c
+NM_SRC += srcs/print_output.c
+NM_SRC += srcs/utils.c
+NM_SRC += srcs/handler_32.c
+NM_SRC += srcs/handler_fat.c
+
+OTOOL_SRC = srcs/ft_otool.c
+OTOOL_SRC += srcs/utils.c
 
 INC = -I ./incs/
 
-NAME = ft_nm
+NM = ft_nm
+OTOOL = ft_otool
 
-OBJ = $(SRC:.c=.o)
+NM_OBJ = $(NM_SRC:.c=.o)
+OTOOL_OBJ = $(OTOOL_SRC:.c=.o)
+
 FLAG = -Wall -Werror -Wextra
 DEBUG_FLAG = -fsanitize=address -Wall -Werror -Wextra
 
@@ -23,12 +29,17 @@ CY =  \033[93m
 CE = \033[0m
 CB = \033[34m
 
-all: $(NAME)
+all: $(NM) $(OTOOL)
 
-$(NAME): start $(OBJ)
+$(NM): start $(NM_OBJ)
 	@echo "\033[K$(CY)[ft_nm] :$(CE) $(CG)Compiling ft_nm ...$(CE)";
 	@make -C libft
-	@gcc $(FLAG) -o $(NAME) $(INC) $(SRC) $(LIB);
+	@gcc $(FLAG) -o $(NM) $(NM_SRC) $(LIB);
+
+$(OTOOL): $(OTOOL_OBJ)
+	@echo "\033[K$(CY)[ft_otool] :$(CE) $(CG)Compiling ft_otool ...$(CE)";
+	@make -C libft
+	@gcc $(FLAG) -o $(OTOOL) $(OTOOL_SRC) $(LIB);
 
 %.o: %.c
 	@echo "\033[K$(CY)[ft_nm] :$(CE) $(CG)Compiling $<$(CE) \033[1A";
@@ -62,12 +73,16 @@ start:
 
 clean: start
 	@echo "\033[K$(CY)[ft_nm] :$(CE) $(CG)Cleaning ft_nm objects$(CE)\033[1A";
-	@/bin/rm -rf $(OBJ);
+	@/bin/rm -rf $(NM_OBJ);
+	@echo "\033[K$(CY)[ft_otool] :$(CE) $(CG)Cleaning ft_otool objects$(CE)\033[1A";
+	@/bin/rm -rf $(OTOOL_OBJ);
 	-@make clean -C $(LIB_PATH);
 
 fclean: start clean
-	@echo "\033[K$(CY)[ft_nm] :$(CE) $(CG)Cleaning 42sh ...$(CE)\033[1A";
-	@/bin/rm -f $(NAME);
+	@echo "\033[K$(CY)[ft_nm] :$(CE) $(CG)Cleaning ft_nm ...$(CE)\033[1A";
+	@/bin/rm -f $(NM);
+	@echo "\033[K$(CY)[ft_nm] :$(CE) $(CG)Cleaning ft_otool ...$(CE)\033[1A";
+	@/bin/rm -f $(OTOOL);
 	-@make fclean -C $(LIB_PATH);
 
 re: fclean all
