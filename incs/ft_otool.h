@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 17:12:34 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:36:09 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/stat.h>
 # include <sys/mman.h>
 
-typedef struct 			s_otool
+typedef struct			s_otool
 {
 	struct stat			buff;
 	unsigned char		*assembly;
@@ -33,22 +33,22 @@ typedef struct 			s_otool
 	unsigned long long	addr;
 }						t_otool;
 
-int			main(int ac, char **av);
-int			ft_otool(void *ptr, struct stat buff, char *name);
-t_otool		*otool_init(struct stat buff, void *ptr);
+int						main(int ac, char **av);
+int						ft_otool(void *ptr, struct stat buff, char *name);
+t_otool					*otool_init(struct stat buff, void *ptr);
 
-int			handler_64(void *ptr, struct stat buff, char *name);
-int			handler_32(void *ptr, struct stat buff, char *name);
-int			get_fat_32(void *ptr, struct stat buff, char *name);
-int			get_fat_64(void *ptr, struct stat buff, char *name);
+int						handler_64(void *ptr, struct stat buff, char *name);
+int						handler_32(void *ptr, struct stat buff, char *name);
+int						get_fat_32(void *ptr, struct stat buff, char *name);
+int						get_fat_64(void *ptr, struct stat buff, char *name);
 
-int			security_func(struct stat buff, int offset);
-int			reverse_endianness(int x);
+int						security_func(struct stat buff, int offset);
+int						reverse_endianness(int x);
 
-int			print_output(t_otool *otool, int archbool, char *name);
-void		print_addr(unsigned long long n, int boo);
-void		print_hex(unsigned char byte);
-int			print_corrupted(char *name);
-int			put_error(char *error);
+int						print_output(t_otool *otool, int archbool, char *name);
+void					print_addr(unsigned long long n, int boo);
+void					print_hex(unsigned char byte);
+int						print_corrupted(char *name);
+int						put_error(char *error);
 
 #endif

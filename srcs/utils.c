@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 17:06:38 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:43:55 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			print_corrupted(char *name)
 	return (0);
 }
 
-void	print_hex(unsigned char byte)
+void		print_hex(unsigned char byte)
 {
 	char			str[2];
 	short			count;

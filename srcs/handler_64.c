@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 19:00:52 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:39:20 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ int			handler_64(void *ptr, struct stat buff, char *name)
 	sections = NULL;
 	i = -1;
 	if (!security_func(buff, sizeof(struct mach_header_64) * 2))
-		return print_corrupted(name);
+		return (print_corrupted(name));
 	header = (struct mach_header_64 *)ptr;
 	lc = (void *)ptr + sizeof(struct mach_header_64);
-	if (!security_func(buff, sizeof(struct mach_header_64) + header->sizeofcmds))
-		return print_corrupted(name);
+	if (!security_func(buff, sizeof(*header) + header->sizeofcmds))
+		return (print_corrupted(name));
 	while (++i < (int)header->ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
@@ -98,6 +98,6 @@ int			handler_64(void *ptr, struct stat buff, char *name)
 		lc = (void *)lc + lc->cmdsize;
 	}
 	if (!print_output(get_symbols(sym, ptr, buff), sections))
-		return print_corrupted(name);
+		return (print_corrupted(name));
 	return (1);
 }

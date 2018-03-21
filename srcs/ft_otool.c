@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 17:26:51 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/03/21 17:31:01 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_otool	*otool_init(struct stat buff, void *ptr)
 	otool->error = 0;
 	otool->assembly = NULL;
 	otool->ptr = ptr;
-	return otool;
+	return (otool);
 }
 
 int		ft_otool(void *ptr, struct stat buff, char *name)
