@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/02 15:46:10 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/20 15:44:12 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/04/11 19:11:55 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			ft_tab_del(char **tab)
 	if (!tab)
 		return ;
 	i = -1;
-	while (++i < ft_strlen(*tab))
-		ft_strdel(&(tab[i]));
+	while (tab[++i])
+		free(tab[i]);
 	free(tab);
 }

@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 17:39:20 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/04/11 19:10:11 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	print_output(t_nm *nm, char **sections)
 		free(nm);
 		nm = tmp;
 	}
+	ft_tab_del(sections);
 	return (1);
 }
 
@@ -40,7 +41,7 @@ static t_nm	*get_symbols(struct symtab_command *sym, void *ptr,
 	struct nlist_64 *array;
 	t_nm			*lst;
 
-	if (!security_func(buff, sym->stroff + sym->strsize))
+	if (!sym || !security_func(buff, sym->stroff + sym->strsize))
 		return (NULL);
 	array = (void *)ptr + sym->symoff;
 	stringtable = (void *)ptr + sym->stroff;
@@ -52,7 +53,8 @@ static t_nm	*get_symbols(struct symtab_command *sym, void *ptr,
 	return (lst);
 }
 
-static char	**get_sections(char **sections, struct segment_command_64 *segment)
+static int	get_sections(char ***sections,
+	struct segment_command_64 *segment, struct stat buff)
 {
 	char				**tmp;
 	int					i;
@@ -60,17 +62,20 @@ static char	**get_sections(char **sections, struct segment_command_64 *segment)
 
 	i = -1;
 	if (segment->nsects < 1)
-		return (sections);
+		return (1);
+	if (!security_func(buff, segment->fileoff))
+		return (0);
 	tmp = (char **)malloc(sizeof(char *) * (segment->nsects + 1));
 	section = (struct section_64 *)(segment + 1);
 	while (++i < (int)segment->nsects)
-		(tmp[i] = format_section_name(section->sectname)) ? (section++) : 0;
+		(tmp[i] = section->sectname) ? (section++) : 0;
 	tmp[i] = 0;
-	if (!sections)
-		sections = ft_tab_cpy(tmp, sections);
+	if (!(*sections))
+		*sections = ft_tab_cpy(tmp, *sections);
 	else
-		sections = ft_tab_join(sections, tmp, 0, 0);
-	return (sections);
+		*sections = ft_tab_join(*sections, tmp, 1, 0);
+	free(tmp);
+	return (1);
 }
 
 int			handler_64(void *ptr, struct stat buff, char *name)
@@ -82,6 +87,7 @@ int			handler_64(void *ptr, struct stat buff, char *name)
 	char					**sections;
 
 	sections = NULL;
+	sym = NULL;
 	i = -1;
 	if (!security_func(buff, sizeof(struct mach_header_64) * 2))
 		return (print_corrupted(name));
@@ -91,13 +97,12 @@ int			handler_64(void *ptr, struct stat buff, char *name)
 		return (print_corrupted(name));
 	while (++i < (int)header->ncmds)
 	{
-		if (lc->cmd == LC_SYMTAB)
-			sym = (struct symtab_command *)lc;
+		(lc->cmd == LC_SYMTAB) ? sym = (struct symtab_command *)lc : 0;
 		if (lc->cmd == LC_SEGMENT_64)
-			sections = get_sections(sections, (struct segment_command_64 *)lc);
+			if (!get_sections(&sections, (struct segment_command_64 *)lc, buff))
+				return (print_corrupted(name));
 		lc = (void *)lc + lc->cmdsize;
 	}
-	if (!print_output(get_symbols(sym, ptr, buff), sections))
-		return (print_corrupted(name));
-	return (1);
+	return (!print_output(get_symbols(sym, ptr, buff), sections)) ?
+	(print_corrupted(name)) : 0;
 }

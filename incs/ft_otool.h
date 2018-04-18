@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 17:36:09 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/04/10 18:17:14 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int						handler_32(void *ptr, struct stat buff, char *name);
 int						get_fat_32(void *ptr, struct stat buff, char *name);
 int						get_fat_64(void *ptr, struct stat buff, char *name);
 
-int						security_func(struct stat buff, int offset);
+int						security_func(struct stat buff, uintmax_t offset);
 int						reverse_endianness(int x);
 
 int						print_output(t_otool *otool, int archbool, char *name);

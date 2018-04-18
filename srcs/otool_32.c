@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 17:32:48 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/04/10 19:40:59 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int				handler_32(void *ptr, struct stat buff, char *name)
 
 	otool = otool_init(buff, ptr);
 	if (!security_func(buff, sizeof(struct mach_header *)))
-		return (0);
+		return (1);
 	header = (struct mach_header *)ptr;
 	if (!security_func(buff, sizeof(*header) + header->sizeofcmds))
-		return (0);
+		return (1);
 	lc = (struct load_command *)(header + 1);
 	i = -1;
 	while (++i < (int)header->ncmds)

@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 17:31:01 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/04/11 18:50:54 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		print_output(t_otool *otool, int archbool, char *name)
 		print_hex((otool->assembly)[i]);
 	}
 	ft_putstr(" \n");
-	return (1);
+	return (0);
 }
 
 t_otool	*otool_init(struct stat buff, void *ptr)
@@ -64,8 +64,7 @@ int		ft_otool(void *ptr, struct stat buff, char *name)
 		return (get_fat_32(ptr, buff, name));
 	else if (magic == (int)FAT_CIGAM_64)
 		return (get_fat_64(ptr, buff, name));
-	else
-		return (-1);
+	return (1);
 }
 
 int		otool_process(char *av)
@@ -73,9 +72,11 @@ int		otool_process(char *av)
 	int			fd;
 	struct stat buff;
 	void		*ptr;
+	int			output;
 
 	fd = 0;
 	ptr = NULL;
+	output = 0;
 	if ((fd = open(av, O_RDONLY)) < 0)
 		return (put_error("Open Failed"));
 	if (fstat(fd, &buff) < 0)
@@ -83,21 +84,22 @@ int		otool_process(char *av)
 	if ((ptr = mmap(0, buff.st_size, PROT_READ, MAP_PRIVATE, fd, 0))
 														== MAP_FAILED)
 		return (put_error("Mmap error"));
-	if (ft_otool(ptr, buff, av) <= 0)
-		return (print_corrupted(av));
+	output = ft_otool(ptr, buff, av);
 	close(fd);
 	munmap(ptr, buff.st_size);
-	return (0);
+	return (output);
 }
 
 int		main(int ac, char **av)
 {
 	int			i;
+	int			output;
 
 	if (ac < 2)
 		return (put_error("Need at least one argument"));
 	i = 0;
+	output = 0;
 	while (++i < ac)
-		otool_process(av[i]);
-	return (0);
+		output = otool_process(av[i]);
+	return (output);
 }

@@ -26,7 +26,7 @@ NM_OBJ = $(NM_SRC:.c=.o)
 OTOOL_OBJ = $(OTOOL_SRC:.c=.o)
 
 FLAG = -Wall -Werror -Wextra
-DEBUG_FLAG = -fsanitize=address -Wall -Werror -Wextra
+DEBUG_FLAG = -g -Wall -Werror -Wextra
 
 CG = \033[92m
 CY =  \033[93m

@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 18:24:05 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 09:53:46 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/04/18 14:53:14 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void					print_letter(t_nm *nm, char **tab);
 void					print_addr(unsigned long long n, int boo);
 
 char					*format_section_name(char *section_name);
-int						reverse_endianness(int x);
-int						security_func(struct stat buff, int offset);
+int						reverse_endianness(uintmax_t x);
+int						security_func(struct stat buff, uintmax_t offset);
 int						print_corrupted(char *name);
 int						put_error(char *error);
 

@@ -6,7 +6,7 @@
 /*   By: dgalide <dgalide@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 16:28:41 by dgalide           #+#    #+#             */
-/*   Updated: 2018/03/21 17:35:37 by dgalide          ###   ########.fr       */
+/*   Updated: 2018/04/18 15:10:03 by dgalide          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ int				get_fat_32(void *ptr, struct stat buff, char *name)
 	struct fat_header	*header;
 	struct fat_arch		*arch;
 	int					narch;
+	int					offset;
 
 	i = -1;
+	offset = 0;
 	if (!security_func(buff, sizeof(struct fat_header) * 2))
 		return (print_corrupted(name));
 	header = (struct fat_header *)ptr;
@@ -36,12 +38,13 @@ int				get_fat_32(void *ptr, struct stat buff, char *name)
 		return (print_corrupted(name));
 	while (++i < (int)narch)
 	{
-		if (reverse_endianness(arch->cputype) == CPU_TYPE_X86_64 ||
-		reverse_endianness(arch->cputype) == CPU_TYPE_X86)
-			return (launch(ptr, reverse_endianness(arch->offset), buff, name));
+		if (reverse_endianness(arch->cputype) == CPU_TYPE_X86_64)
+			offset = reverse_endianness(arch->offset);
+		if (reverse_endianness(arch->cputype) == CPU_TYPE_X86)
+			offset = !offset ? reverse_endianness(arch->offset) : offset;
 		arch++;
 	}
-	return (1);
+	return (offset ? launch(ptr, offset, buff, name) : 1);
 }
 
 int				get_fat_64(void *ptr, struct stat buff, char *name)
@@ -50,8 +53,10 @@ int				get_fat_64(void *ptr, struct stat buff, char *name)
 	struct fat_header	*header;
 	struct fat_arch_64	*arch;
 	int					narch;
+	int					offset;
 
 	i = -1;
+	offset = 0;
 	if (!security_func(buff, sizeof(struct fat_header) * 2))
 		return (print_corrupted(name));
 	header = (struct fat_header *)((void *)ptr);
@@ -61,10 +66,11 @@ int				get_fat_64(void *ptr, struct stat buff, char *name)
 		return (print_corrupted(name));
 	while (++i < (int)narch)
 	{
-		if (reverse_endianness(arch->cputype) == CPU_TYPE_X86_64 ||
-		reverse_endianness(arch->cputype) == CPU_TYPE_X86)
-			return (launch(ptr, reverse_endianness(arch->offset), buff, name));
+		if (reverse_endianness(arch->cputype) == CPU_TYPE_X86_64)
+			offset = reverse_endianness(arch->offset);
+		if (reverse_endianness(arch->cputype) == CPU_TYPE_X86)
+			offset = !offset ? reverse_endianness(arch->offset) : offset;
 		arch++;
 	}
-	return (1);
+	return (offset ? launch(ptr, offset, buff, name) : 1);
 }
